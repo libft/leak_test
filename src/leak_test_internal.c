@@ -6,15 +6,13 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 17:22:35 by jmaing            #+#    #+#             */
-/*   Updated: 2022/05/14 05:01:09 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/05/14 05:09:10 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "leak_test_internal.h"
 
 #include "malloc_mock.h"
-
-#include <stdio.h>
 
 static int	leak_test_internal(
 	t_context *context,
