@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   leak_test_internal.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaing <jmaing@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 17:25:11 by jmaing            #+#    #+#             */
-/*   Updated: 2022/05/14 02:29:41 by jmaing           ###   ########.fr       */
+/*   Updated: 2022/05/14 04:26:13 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,7 @@ typedef struct s_context
 	size_t			fail_counter;
 	bool			error;
 }	t_context;
+
+int		leak_test_internal_execute(t_context *context);
 
 #endif

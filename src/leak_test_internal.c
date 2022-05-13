@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   leak_test_internal.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaing <jmaing@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 17:22:35 by jmaing            #+#    #+#             */
-/*   Updated: 2022/05/14 02:30:08 by jmaing           ###   ########.fr       */
+/*   Updated: 2022/05/14 05:01:09 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,7 @@
 
 #include "malloc_mock.h"
 
-static t_context	*g_context = NULL;
-
-void	leak_test_start(void)
-{
-	malloc_mock(&g_context->mock, g_context);
-}
-
-void	leak_test_end(void)
-{
-	malloc_mock(NULL, NULL);
-}
-
-static int	leak_test_execute(t_context *context)
-{
-	context->total_count = 0;
-	context->remain_count = 0;
-	context->current = context->head;
-	context->fail_counter = 0;
-	g_context = context;
-	context->target(context);
-	g_context = NULL;
-	if (context->remain_count)
-		return (MALLOC_TEST_RESULT_LEAK);
-	if (context->error)
-		return (MALLOC_TEST_RESULT_ERROR);
-	return (0);
-}
+#include <stdio.h>
 
 static int	leak_test_internal(
 	t_context *context,
@@ -52,6 +26,8 @@ static int	leak_test_internal(
 	t_node	node;
 	int		error;
 
+	if (total_count_limit <= current_skipped)
+		return (0);
 	if (!tail)
 		context->head = &node;
 	else
@@ -59,14 +35,12 @@ static int	leak_test_internal(
 	node.next = NULL;
 	node.next_fail = total_count_limit - current_skipped;
 	error = 0;
-	while (--node.next_fail && !error)
+	while (node.next_fail && !error)
 	{
-		error = leak_test_execute(context);
+		node.next_fail--;
+		error = leak_test_internal_execute(context);
 		if (!error)
-			error = leak_test_internal(
-					context,
-					&node,
-					context->total_count,
+			error = leak_test_internal(context, &node, context->total_count,
 					current_skipped + node.next_fail + 1);
 	}
 	if (!tail)
@@ -88,7 +62,7 @@ int	leak_test(t_leak_test target, void *context)
 	my_context.head = NULL;
 	my_context.error = false;
 	my_context.count_limit = 0;
-	error = leak_test_execute(&my_context);
+	error = leak_test_internal_execute(&my_context);
 	if (error)
 		return (error);
 	my_context.count_limit = my_context.total_count;
