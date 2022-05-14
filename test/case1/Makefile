@@ -9,6 +9,7 @@ VARIANT ?= address
 .PHONY: all test clean
 all: test
 test: test.$(VARIANT).exe
+	$Q$(MAKE) ../../src/libft_leak_test.$(VARIANT).a
 	$Q./$< | sort | diff expected_result.txt -
 clean:
 	$Qrm -f *.o *.a *.exe
@@ -17,7 +18,6 @@ test.address.exe: CFLAGS += -fsanitize=address
 test.memory.exe: CFLAGS += -fsanitize=memory
 test.undefined.exe: CFLAGS += -fsanitize=undefined
 
-.PHONY: ../../src/libft_leak_test.address.a
 ../../src/libft_leak_test.%.a:
 	$Q$(MAKE) -C $(@D) $(@F)
 

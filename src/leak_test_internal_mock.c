@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 19:14:26 by jmaing            #+#    #+#             */
-/*   Updated: 2022/05/14 05:00:52 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/05/14 20:08:10 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ int	leak_test_internal_execute(t_context *context)
 	context->target(context);
 	g_context = NULL;
 	if (context->remain_count)
-		return (MALLOC_TEST_RESULT_LEAK);
+		return (FT_LEAK_TEST_RESULT_LEAK);
 	if (context->error)
-		return (MALLOC_TEST_RESULT_ERROR);
+		return (FT_LEAK_TEST_RESULT_ERROR);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 15:00:12 by jmaing            #+#    #+#             */
-/*   Updated: 2022/05/14 05:06:31 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/05/14 20:07:35 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "../../src/leak_test.h"
+#include <leak_test.h>
 
 static void	*a(size_t size)
 {
@@ -64,9 +64,9 @@ int	main(void)
 {
 	const int	error = leak_test(&test, NULL);
 
-	if (error == MALLOC_TEST_RESULT_ERROR)
+	if (error == FT_LEAK_TEST_RESULT_ERROR)
 		puts("Error occurred");
-	else if (error == MALLOC_TEST_RESULT_LEAK)
+	else if (error == FT_LEAK_TEST_RESULT_LEAK)
 		puts("LEAK FOUND!!!");
 	return (0);
 }

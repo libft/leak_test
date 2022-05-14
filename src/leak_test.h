@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   leak_test.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaing <jmaing@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:57:45 by jmaing            #+#    #+#             */
-/*   Updated: 2022/05/14 01:47:08 by jmaing           ###   ########.fr       */
+/*   Updated: 2022/05/14 20:08:10 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int		leak_test(t_leak_test target, void *context);
 void	leak_test_start(void);
 void	leak_test_end(void);
 
-# define MALLOC_TEST_RESULT_OK 0
-# define MALLOC_TEST_RESULT_ERROR -1
-# define MALLOC_TEST_RESULT_LEAK 1
+# define FT_LEAK_TEST_RESULT_OK 0
+# define FT_LEAK_TEST_RESULT_ERROR -1
+# define FT_LEAK_TEST_RESULT_LEAK 1
 
 #endif
