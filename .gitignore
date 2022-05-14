@@ -5,4 +5,5 @@
 *.dSYM
 *.log
 
+.build
 dist

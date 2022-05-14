@@ -2,7 +2,7 @@ MAKEFLAGS += --no-builtin-rules
 Q := $(if $(filter 1,$(V) $(VERBOSE)),,@)
 MAKE := $(MAKE) $(if $(filter 1,$(V) $(VERBOSE)),,--no-print-directory)
 CASES := $(sort $(wildcard case*))
-RULES := all test clean
+RULES := all test clean fclean
 CORES := $(shell sh scripts/nproc.sh)
 
 .PHONY: $(RULES)

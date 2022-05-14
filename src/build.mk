@@ -7,7 +7,7 @@ NAME := leak_test
 
 CC ?= clang
 CFLAGS ?= -g3
-ARFLAGS := crs
+ARFLAGS := cr$(if $(filter 1,$(V) $(VERBOSE)),v,s)
 
 .PHONY: clean fclena
 clean:
