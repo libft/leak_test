@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 15:00:12 by jmaing            #+#    #+#             */
-/*   Updated: 2022/05/15 06:16:22 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/05/15 06:24:51 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ bool	test(void *context)
 
 int	main(void)
 {
-	const int	error = leak_test(&test, NULL);
+	const int	error = leak_test(&test, NULL, NULL);
 
 	if (error == FT_LEAK_TEST_RESULT_ERROR)
 		puts("Error occurred");

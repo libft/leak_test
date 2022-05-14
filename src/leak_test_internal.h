@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 17:25:11 by jmaing            #+#    #+#             */
-/*   Updated: 2022/05/15 06:17:17 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/05/15 06:27:28 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,18 @@ typedef struct s_node
 
 typedef struct s_context
 {
-	t_malloc_mock	mock;
-	t_leak_test		target;
-	void			*context;
-	t_node			*head;
-	size_t			count_limit;
-	size_t			total_count;
-	size_t			remain_count;
-	t_node			*current;
-	size_t			fail_counter;
-	bool			error;
+	t_malloc_mock		mock;
+	t_leak_test			target;
+	void				*context;
+	t_node				*head;
+	t_leak_test_options	options;
+	size_t				test_count;
+	size_t				count_limit;
+	size_t				total_count;
+	size_t				remain_count;
+	t_node				*current;
+	size_t				fail_counter;
+	bool				error;
 }	t_context;
 
 int		leak_test_internal_execute(t_context *context);

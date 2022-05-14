@@ -6,13 +6,17 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 17:22:35 by jmaing            #+#    #+#             */
-/*   Updated: 2022/05/14 05:09:10 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/05/15 06:27:59 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "leak_test_internal.h"
 
 #include "malloc_mock.h"
+
+static const t_leak_test_options	g_default_options = {
+	0
+};
 
 static int	leak_test_internal(
 	t_context *context,
@@ -48,7 +52,7 @@ static int	leak_test_internal(
 	return (error);
 }
 
-int	leak_test(t_leak_test target, void *context)
+int	leak_test(t_leak_test target, void *context, t_leak_test_options *options)
 {
 	t_context	my_context;
 	int			error;
@@ -58,6 +62,11 @@ int	leak_test(t_leak_test target, void *context)
 	my_context.target = target;
 	my_context.context = context;
 	my_context.head = NULL;
+	if (options)
+		my_context.options = *options;
+	else
+		my_context.options = g_default_options;
+	my_context.test_count = 0;
 	my_context.error = false;
 	my_context.count_limit = 0;
 	error = leak_test_internal_execute(&my_context);

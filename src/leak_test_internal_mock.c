@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 19:14:26 by jmaing            #+#    #+#             */
-/*   Updated: 2022/05/15 05:57:16 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/05/15 06:31:24 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,9 @@ int	leak_test_internal_execute(t_context *context)
 {
 	int	error;
 
+	if (context->options.maximum_count
+		&& context->test_count >= context->options.maximum_count)
+		return (FT_LEAK_TEST_RESULT_ERROR_TO_MANY);
 	context->total_count = 0;
 	context->remain_count = 0;
 	context->current = context->head;
@@ -71,6 +74,7 @@ int	leak_test_internal_execute(t_context *context)
 	g_context = context;
 	error = context->target(context);
 	g_context = NULL;
+	context->test_count++;
 	if (error || context->error)
 		return (FT_LEAK_TEST_RESULT_ERROR);
 	if (context->remain_count)
