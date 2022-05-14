@@ -5,11 +5,16 @@ MAKE := $(MAKE) $(if $(filter 1,$(V) $(VERBOSE)),,--no-print-directory)
 NAME := leak_test
 VARIANTS := none address memory undefined
 
-.PHONY: all $(VARIANTS) $(addprefix libft_leak_test.,$(VARIANTS:=.a))
-all: $(VARIANTS)
-libft_leak_test.%.a: %
-$(VARIANTS): %:
-	$Q$(MAKE) -C .build libft_$(NAME).$@.a && cp .build/libft_$(NAME).$@.a libft_$(NAME).$@.a || echo "Failed to build libft_$(NAME).$@.a"
+.PHONY: all $(addprefix libft_leak_test.,$(VARIANTS:=.a))
+all: $(addprefix libft_leak_test.,$(VARIANTS:=.a))
+libft_leak_test.none.a:
+	$Q$(MAKE) -C .build $@ && cp .build/$@ $@ || echo "Failed to build $@"
+libft_leak_test.address.a:
+	$Q$(MAKE) -C .build $@ && cp .build/$@ $@ || echo "Failed to build $@"
+libft_leak_test.memory.a:
+	$Q$(MAKE) -C .build $@ && cp .build/$@ $@ || echo "Failed to build $@"
+libft_leak_test.undefined.a:
+	$Q$(MAKE) -C .build $@ && cp .build/$@ $@ || echo "Failed to build $@"
 
 .PHONY: clean fclean all
 clean:

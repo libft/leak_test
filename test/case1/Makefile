@@ -8,9 +8,9 @@ VARIANT ?= address
 
 .PHONY: all test clean
 all: test
-test: test.$(VARIANT).exe
-	$Q$(MAKE) ../../src/libft_leak_test.$(VARIANT).a
-	$Q./$< | sort | diff expected_result.txt -
+test:
+	$Q$(MAKE) test.$(VARIANT).exe
+	$Q./test.$(VARIANT).exe | sort | diff expected_result.txt -
 clean:
 	$Qrm -f *.o *.a *.exe
 
