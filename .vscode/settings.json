@@ -2,4 +2,10 @@
   "files.associations": {
     "*.h": "c",
   },
+  "C_Cpp.default.includePath": [
+    "${workspaceFolder}/src/include",
+  ],
+  "c-cpp-flylint.includePaths": [
+    "${workspaceFolder}/src/include",
+  ],
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   portable_prelude.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaing <jmaing@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 12:26:39 by jmaing            #+#    #+#             */
-/*   Updated: 2022/05/13 12:29:28 by jmaing           ###   ########.fr       */
+/*   Updated: 2022/05/15 06:19:47 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
