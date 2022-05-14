@@ -4,3 +4,5 @@
 *.exe
 *.dSYM
 *.log
+
+dist
