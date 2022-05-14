@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 15:00:12 by jmaing            #+#    #+#             */
-/*   Updated: 2022/05/14 20:07:35 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/05/15 06:16:22 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include <leak_test.h>
+#include <ft/leak_test.h>
 
 static void	*a(size_t size)
 {

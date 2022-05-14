@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   malloc_mock.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaing <jmaing@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 12:30:10 by jmaing            #+#    #+#             */
-/*   Updated: 2022/05/13 17:30:37 by jmaing           ###   ########.fr       */
+/*   Updated: 2022/05/15 06:18:12 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,9 @@ void	free(void *ptr)
 	if (!real)
 		real = (void (*)(void *ptr))dlsym(RTLD_NEXT, "free");
 	if (!g_mock)
-		return (real(ptr));
-	return (g_mock->free_mock(ptr, real, g_context));
+		real(ptr);
+	else
+		g_mock->free_mock(ptr, real, g_context);
 }
 
 void	malloc_mock(const t_malloc_mock *mock, void *context)

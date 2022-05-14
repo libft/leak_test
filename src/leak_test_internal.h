@@ -6,14 +6,14 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 17:25:11 by jmaing            #+#    #+#             */
-/*   Updated: 2022/05/14 04:26:13 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/05/15 06:17:17 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEAK_TEST_INTERNAL_H
 # define LEAK_TEST_INTERNAL_H
 
-# include "leak_test.h"
+# include "include/ft/leak_test.h"
 
 # include <stddef.h>
 
