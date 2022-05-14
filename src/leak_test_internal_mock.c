@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 19:14:26 by jmaing            #+#    #+#             */
-/*   Updated: 2022/05/14 20:08:10 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/05/15 05:57:16 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,18 +62,20 @@ static t_context	*g_context = NULL;
 
 int	leak_test_internal_execute(t_context *context)
 {
+	int	error;
+
 	context->total_count = 0;
 	context->remain_count = 0;
 	context->current = context->head;
 	context->fail_counter = 0;
 	g_context = context;
-	context->target(context);
+	error = context->target(context);
 	g_context = NULL;
+	if (error || context->error)
+		return (FT_LEAK_TEST_RESULT_ERROR);
 	if (context->remain_count)
 		return (FT_LEAK_TEST_RESULT_LEAK);
-	if (context->error)
-		return (FT_LEAK_TEST_RESULT_ERROR);
-	return (0);
+	return (FT_LEAK_TEST_RESULT_OK);
 }
 
 void	leak_test_start(void)
