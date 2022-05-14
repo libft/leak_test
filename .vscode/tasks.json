@@ -1,0 +1,10 @@
+{
+  "tasks": [
+    {
+      "label": "Build case1/address",
+      "type": "shell",
+      "command": "make -C test/case1 test.address.exe",
+      "problemMatcher": ["$gcc"]
+    },
+  ],
+}

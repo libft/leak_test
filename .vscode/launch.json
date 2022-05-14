@@ -2,7 +2,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "(lldb) Launch",
+      "name": "Launch case1/address",
       "type": "cppdbg",
       "request": "launch",
       "program": "${workspaceFolder}/test/case1/test.address.exe",
@@ -11,7 +11,8 @@
       "cwd": "${fileDirname}",
       "environment": [],
       "externalConsole": false,
-      "MIMode": "lldb"
-    }
-  ]
+      "MIMode": "lldb",
+      "preLaunchTask": "Build case1/address",
+    },
+  ],
 }
