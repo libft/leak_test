@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 15:00:12 by jmaing            #+#    #+#             */
-/*   Updated: 2022/05/15 06:24:51 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/05/15 06:51:41 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static const char	*b(void *ptr)
 		return ("false");
 }
 
-bool	test(void *context)
+bool	has_no_leak(void *context)
 {
 	void	*p1;
 	void	*p2;
@@ -41,6 +41,7 @@ bool	test(void *context)
 	void	*p4;
 	void	*p5;
 
+	printf("%s", context);
 	leak_test_start();
 	p1 = malloc(42);
 	p2 = malloc(42);
@@ -60,13 +61,37 @@ bool	test(void *context)
 	return (false);
 }
 
+bool	has_leak(void *context)
+{
+	(void) context;
+
+	puts("[3]:\tHello world!");
+	leak_test_start();
+	(void) malloc(42);
+	return (false);
+}
+
 int	main(void)
 {
-	const int	error = leak_test(&test, NULL, NULL);
+	int					error;
+	t_leak_test_options	options;
 
-	if (error == FT_LEAK_TEST_RESULT_ERROR)
-		puts("Error occurred");
+	options.maximum_count = 10;
+	error = leak_test(&has_no_leak, "[1]:\t", &options);
+	if (error < 0)
+		printf("[1]:\tError occurred: %d\n", error);
+	else if (error)
+		puts("[1]:\tLEAK FOUND!!!");
+	options.maximum_count = 11;
+	error = leak_test(&has_no_leak, "[2]:\t", &options);
+	if (error < 0)
+		printf("[2]:\tError occurred: %d\n", error);
+	else if (error)
+		puts("[2]:\tLEAK FOUND!!!");
+	error = leak_test(&has_leak, NULL, NULL);
+	if (error < 0)
+		printf("[3]:\tError occurred: %d\n", error);
 	else if (error == FT_LEAK_TEST_RESULT_LEAK)
-		puts("LEAK FOUND!!!");
+		puts("[3]:\tLEAK FOUND!!!");
 	return (0);
 }
