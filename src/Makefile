@@ -1,17 +1,19 @@
-SRCS := $(shell find . -maxdepth 1 -type f -name "*.c")
+MAKEFLAGS += --no-builtin-rules
+Q := $(if $(filter 1,$(V) $(VERBOSE)),,@)
+MAKE := $(MAKE) $(if $(filter 1,$(V) $(VERBOSE)),,--no-print-directory)
+
 NAME := leak_test
+VARIANTS := none address memory undefined
 
-all:
-	$(MAKE) -k libft_$(NAME).none.a libft_$(NAME).address.a libft_$(NAME).memory.a libft_$(NAME).undefined.a
+.PHONY: all $(VARIANTS)
+all: $(VARIANTS)
+$(VARIANTS): %:
+	$Q$(MAKE) -C .build libft_$(NAME).$@.a && cp .build/libft_$(NAME).$@.a libft_$(NAME).$@.a || echo "Failed to build libft_$(NAME).$@.a"
 
-%.none.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@ -g3
-%.address.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@ -fsanitize=address -g3
-%.memory.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@ -fsanitize=memory -g3
-%.undefined.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@ -fsanitize=undefined -g3
-
-libft_$(NAME).%.a: $(SRCS:.c=.%.o)
-	$(AR) $(ARFLAGS) $@ $^
+.PHONY: clean fclean all
+clean:
+	$Q$(MAKE) -C .build clean
+fclean:
+	$Q$(MAKE) -C .build fclean
+re: fclean
+	$Q$(MAKE) all
