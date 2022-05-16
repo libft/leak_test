@@ -14,19 +14,44 @@ clean:
 fclean: clean
 	$Qrm -f *.o *.a
 test:
-	$Q$(MAKE) test.address.exe && ./test.address.exe | sort | diff expected_result.txt -
+	$Q$(MAKE) test.none.exe && ./test.none.exe | sort | diff expected_result.txt -
+	-$Q$(MAKE) test.address.exe && ./test.address.exe | sort | diff expected_result.txt -
+	-$Q$(MAKE) test.memory.exe && ./test.memory.exe | sort | diff expected_result.txt -
+	-$Q$(MAKE) test.undefined.exe && ./test.undefined.exe | sort | diff expected_result.txt -
 
-.PHONY: target_address
+.PHONY: target_none target_address target_memory target_undefined
+target_none:
+	$Q$(MAKE) -C ../../src libft_leak_test.none.a
 target_address:
 	$Q$(MAKE) -C ../../src libft_leak_test.address.a
+target_memory:
+	$Q$(MAKE) -C ../../src libft_leak_test.memory.a
+target_undefined:
+	$Q$(MAKE) -C ../../src libft_leak_test.undefined.a
 
 SRCS := $(shell find . -maxdepth 1 -type f -name '*.c')
 
+%.none.o: %.c
+	$Q$(CC) $(CFLAGS) $(CPPFLAGS) -c -o $@ $<
 %.address.o: %.c
 	$Q$(CC) $(CFLAGS) $(CPPFLAGS) -fsanitize=address -c -o $@ $<
+%.memory.o: %.c
+	$Q$(CC) $(CFLAGS) $(CPPFLAGS) -fsanitize=memory -c -o $@ $<
+%.undefined.o: %.c
+	$Q$(CC) $(CFLAGS) $(CPPFLAGS) -fsanitize=undefined -c -o $@ $<
 
+lib.none.a: $(SRCS:.c=.none.o)
 lib.address.a: $(SRCS:.c=.address.o)
+lib.memory.a: $(SRCS:.c=.memory.o)
+lib.undefined.a: $(SRCS:.c=.undefined.o)
+%.a:
 	$Q$(AR) $(ARFLAGS) $@ $^
 
-test.address.exe: target_address
+test.none.exe: target_none lib.none.a
+	$Q$(CC) -o $@ lib.none.a ../../src/libft_leak_test.none.a
+test.address.exe: target_address lib.address.a
 	$Q$(CC) -fsanitize=address -o $@ lib.address.a ../../src/libft_leak_test.address.a
+test.memory.exe: target_memory lib.memory.a
+	$Q$(CC) -fsanitize=memory -o $@ lib.memory.a ../../src/libft_leak_test.memory.a
+test.undefined.exe: target_undefined lib.undefined.a
+	$Q$(CC) -fsanitize=undefined -o $@ lib.undefined.a ../../src/libft_leak_test.undefined.a
