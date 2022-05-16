@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 15:00:12 by jmaing            #+#    #+#             */
-/*   Updated: 2022/05/16 22:12:30 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/05/16 22:13:59 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,10 @@ int	main(void)
 	printf("[2] %d\n", leak_test(&has_no_leak, "[2]:\t", &options));
 	printf("[3] %d\n", leak_test(&has_leak, NULL, &options));
 	context = false;
-	printf("[5] %d\n", leak_test(&do_nothing, &context, &options));
+	printf("[4] %d\n", leak_test(&do_nothing, &context, &options));
 	options.allow_empty = true;
-	printf("[6] %d\n", leak_test(&do_nothing, &context, &options));
+	printf("[5] %d\n", leak_test(&do_nothing, &context, &options));
 	context = true;
-	printf("[7] %d\n", leak_test(&do_nothing, &context, &options));
+	printf("[6] %d\n", leak_test(&do_nothing, &context, &options));
 	return (EXIT_SUCCESS);
 }
