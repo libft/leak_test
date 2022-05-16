@@ -2,25 +2,31 @@ MAKEFLAGS += --no-builtin-rules
 Q := $(if $(filter 1,$(V) $(VERBOSE)),,@)
 MAKE := $(MAKE) $(if $(filter 1,$(V) $(VERBOSE)),,--no-print-directory)
 
+CC := clang
 CPPFLAGS += -I../../src/include
-CFLAGS ?= -g3
-VARIANT ?= address
+CFLAGS := -g3
+ARFLAGS := crs
 
 .PHONY: all clean fclean test
 all: test
 clean:
-	$Qrm -f *.o *.a *.exe
+	$Qrm -f *.exe
 fclean: clean
+	$Qrm -f *.o *.a
 test:
-	$Q$(MAKE) test.$(VARIANT).exe
-	$Q./test.$(VARIANT).exe | sort | diff expected_result.txt -
+	$Q$(MAKE) test.address.exe && ./test.address.exe | sort | diff expected_result.txt -
 
-test.address.exe: CFLAGS += -fsanitize=address
-test.memory.exe: CFLAGS += -fsanitize=memory
-test.undefined.exe: CFLAGS += -fsanitize=undefined
+.PHONY: target_address
+target_address:
+	$Q$(MAKE) -C ../../src libft_leak_test.address.a
 
-../../src/libft_leak_test.%.a:
-	$Q$(MAKE) -C $(@D) $(@F)
+SRCS := $(shell find . -maxdepth 1 -type f -name '*.c')
 
-test.%.exe: main.c ../../src/libft_leak_test.%.a
-	$Q$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ $^
+%.address.o: %.c
+	$Q$(CC) $(CFLAGS) $(CPPFLAGS) -fsanitize=address -c -o $@ $<
+
+lib.address.a: $(SRCS:.c=.address.o)
+	$Q$(AR) $(ARFLAGS) $@ $^
+
+test.address.exe: target_address
+	$Q$(CC) -fsanitize=address -o $@ lib.address.a ../../src/libft_leak_test.address.a
