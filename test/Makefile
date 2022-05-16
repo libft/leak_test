@@ -2,10 +2,14 @@ MAKEFLAGS += --no-builtin-rules
 Q := $(if $(filter 1,$(V) $(VERBOSE)),,@)
 MAKE := $(MAKE) $(if $(filter 1,$(V) $(VERBOSE)),,--no-print-directory)
 CASES := $(sort $(wildcard case*))
-RULES := all test clean fclean
+RULES := test clean fclean
 CORES := $(shell sh scripts/nproc.sh)
 
-.PHONY: $(RULES)
+all: test
+re:
+	$Q$(MAKE) fclean
+	$Q$(MAKE) all
+.PHONY: all $(RULES) re
 define build_common_rule
 $1:
 	$Q$(foreach t,$(CASES),$(MAKE) -C $t -j $(CORES) $1 && )true
@@ -17,3 +21,8 @@ $(foreach r, \
 		$r \
 	)) \
 )
+
+test: prepare_test
+.PHONY: prepare_test
+prepare_test:
+	$Q$(MAKE) -C ../src re
