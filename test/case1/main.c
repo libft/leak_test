@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 15:00:12 by jmaing            #+#    #+#             */
-/*   Updated: 2022/05/15 06:51:41 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/05/16 16:56:46 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,19 @@ bool	has_no_leak(void *context)
 
 bool	has_leak(void *context)
 {
-	(void) context;
+	void	*a;
+	void	*b;
 
-	puts("[3]:\tHello world!");
+	(void) context;
 	leak_test_start();
-	(void) malloc(42);
+	a = malloc(42);
+	if (!a)
+		return (false);
+	b = malloc(42);
+	if (!b)
+		return (false);
+	free(a);
+	free(b);
 	return (false);
 }
 
