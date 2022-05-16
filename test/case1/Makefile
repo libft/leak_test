@@ -4,7 +4,7 @@ MAKE := $(MAKE) $(if $(filter 1,$(V) $(VERBOSE)),,--no-print-directory)
 
 CC := clang
 CPPFLAGS += -I../../src/include
-CFLAGS := -g3
+CFLAGS := -Wall -Wextra -Werror -std=c99 -pedantic
 ARFLAGS := crs
 
 .PHONY: all clean fclean test

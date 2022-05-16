@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 15:00:12 by jmaing            #+#    #+#             */
-/*   Updated: 2022/05/16 22:13:59 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/05/16 23:47:25 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ bool	do_nothing(const void *context)
 
 int	main(void)
 {
-	int					error;
 	t_leak_test_options	options;
 	bool				context;
 
