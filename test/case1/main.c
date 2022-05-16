@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 15:00:12 by jmaing            #+#    #+#             */
-/*   Updated: 2022/05/16 21:51:55 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/05/16 22:12:30 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,28 +17,30 @@
 
 #include <ft/leak_test.h>
 
+#define ANY_SIZE 42
+
 static const char	*g_b[2] = {"false", "true"};
 
-static void	*a(size_t size)
+static const char	*malloc_succeed(size_t size)
 {
 	void *const	result = malloc(size);
 
 	free(result);
-	return (result);
+	return (g_b[!!result]);
 }
 
 bool	has_no_leak(const void *context)
 {
-	void	*p1;
-	void	*p2;
-	void	*p3;
-	void	*p4;
-	void	*p5;
+	void		*p1;
+	void		*p2;
+	const char	*p3;
+	const char	*p4;
+	const char	*p5;
 
 	printf("%s", (char *)context);
 	leak_test_start();
-	p1 = malloc(42);
-	p2 = malloc(42);
+	p1 = malloc(ANY_SIZE);
+	p2 = malloc(ANY_SIZE);
 	free(p1);
 	free(p2);
 	if (!p1 || !p2)
@@ -47,30 +49,29 @@ bool	has_no_leak(const void *context)
 		printf("%s %s\n", g_b[!!p1], g_b[!!p2]);
 		return (false);
 	}
-	p3 = a(42);
-	p4 = a(42);
-	p5 = a(42);
+	p3 = malloc_succeed(ANY_SIZE);
+	p4 = malloc_succeed(ANY_SIZE);
+	p5 = malloc_succeed(ANY_SIZE);
 	leak_test_end();
-	printf("%s %s %s %s %s\n",
-		g_b[!!p1], g_b[!!p2], g_b[!!p3], g_b[!!p4], g_b[!!p5]);
+	printf("%s %s %s %s %s\n", g_b[!!p1], g_b[!!p2], p3, p4, p5);
 	return (false);
 }
 
 bool	has_leak(const void *context)
 {
-	void	*a;
-	void	*b;
+	void	*this_might_leak;
+	void	*if_this_fails;
 
 	(void) context;
 	leak_test_start();
-	a = malloc(42);
-	if (!a)
+	this_might_leak = malloc(ANY_SIZE);
+	if (!this_might_leak)
 		return (false);
-	b = malloc(42);
-	if (!b)
+	if_this_fails = malloc(ANY_SIZE);
+	if (!if_this_fails)
 		return (false);
-	free(a);
-	free(b);
+	free(this_might_leak);
+	free(if_this_fails);
 	return (false);
 }
 
@@ -97,5 +98,5 @@ int	main(void)
 	printf("[6] %d\n", leak_test(&do_nothing, &context, &options));
 	context = true;
 	printf("[7] %d\n", leak_test(&do_nothing, &context, &options));
-	return (0);
+	return (EXIT_SUCCESS);
 }
