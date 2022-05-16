@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 19:14:26 by jmaing            #+#    #+#             */
-/*   Updated: 2022/05/15 07:10:16 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/05/16 21:39:22 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	*ft_leak_test_internal_mock_malloc(
 		ctx->error = true;
 		return (NULL);
 	}
-	result = NULL;
 	if (!ctx->current || ctx->current->next_fail != ctx->fail_counter)
 	{
 		result = real(size);
@@ -35,14 +34,13 @@ void	*ft_leak_test_internal_mock_malloc(
 		else
 			ctx->remain_count++;
 		ctx->fail_counter++;
+		ctx->total_count++;
+		return (result);
 	}
-	else
-	{
-		ctx->current = ctx->current->next;
-		ctx->fail_counter = 0;
-	}
+	ctx->current = ctx->current->next;
+	ctx->fail_counter = 0;
 	ctx->total_count++;
-	return (result);
+	return (NULL);
 }
 
 void	ft_leak_test_internal_mock_free(
@@ -76,10 +74,14 @@ int	leak_test_internal_execute(t_context *context)
 	g_context = NULL;
 	leak_test_end();
 	context->test_count++;
-	if (error || context->error)
+	if (error)
 		return (FT_LEAK_TEST_RESULT_ERROR);
 	if (context->remain_count)
 		return (FT_LEAK_TEST_RESULT_LEAK);
+	if (context->error)
+		return (FT_LEAK_TEST_RESULT_ERROR_ALLOCATION_FAILURE);
+	if (context->current)
+		return (FT_LEAK_TEST_RESULT_ERROR_WRONG_TEST);
 	return (FT_LEAK_TEST_RESULT_OK);
 }
 

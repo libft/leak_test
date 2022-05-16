@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 17:25:11 by jmaing            #+#    #+#             */
-/*   Updated: 2022/05/15 06:27:28 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/05/16 21:49:25 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_context
 {
 	t_malloc_mock		mock;
 	t_leak_test			target;
-	void				*context;
+	const void			*context;
 	t_node				*head;
 	t_leak_test_options	options;
 	size_t				test_count;

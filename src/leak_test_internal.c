@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 17:22:35 by jmaing            #+#    #+#             */
-/*   Updated: 2022/05/15 06:27:59 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/05/16 21:48:21 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 #include "malloc_mock.h"
 
 static const t_leak_test_options	g_default_options = {
-	0
+	0, // test count limit - default unlimited
+	false, // allow empty - default false to catch wrong test function
 };
 
 static int	leak_test_internal(
@@ -52,7 +53,11 @@ static int	leak_test_internal(
 	return (error);
 }
 
-int	leak_test(t_leak_test target, void *context, t_leak_test_options *options)
+int	leak_test(
+	t_leak_test target,
+	const void *context,
+	t_leak_test_options *options
+)
 {
 	t_context	my_context;
 	int			error;
@@ -71,7 +76,9 @@ int	leak_test(t_leak_test target, void *context, t_leak_test_options *options)
 	my_context.count_limit = 0;
 	error = leak_test_internal_execute(&my_context);
 	if (error)
-		return (error);
+		return (FT_LEAK_TEST_RESULT_ERROR);
 	my_context.count_limit = my_context.total_count;
+	if (!my_context.count_limit && !my_context.options.allow_empty)
+		return (FT_LEAK_TEST_RESULT_NO_ALLOCATION);
 	return (leak_test_internal(&my_context, NULL, my_context.count_limit, 0));
 }
