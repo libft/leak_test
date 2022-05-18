@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 17:22:35 by jmaing            #+#    #+#             */
-/*   Updated: 2022/05/18 21:34:13 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/05/18 21:47:18 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,25 @@ int	leak_test(
 		&& my_context.count_limit < my_context.options.minimum_count)
 		return (FT_LEAK_TEST_RESULT_ERROR_TOO_SMALL);
 	return (leak_test_internal(&my_context, NULL, my_context.count_limit, 0));
+}
+
+const char	*leak_test_error(int errno)
+{
+	if (!errno)
+		return ("No error.");
+	if (errno == FT_LEAK_TEST_RESULT_LEAK)
+		return ("At least one leak was found.");
+	if (errno == FT_LEAK_TEST_RESULT_NO_ALLOCATION)
+		return ("No malloc() call. Possibly wrong test function.");
+	if (errno == FT_LEAK_TEST_RESULT_ERROR)
+		return ("Test function returned an error, or allocation failed.");
+	if (errno == FT_LEAK_TEST_RESULT_ERROR_TOO_MANY)
+		return ("Too many tries. Avoid allocations after allocation failures.");
+	if (errno == FT_LEAK_TEST_RESULT_ERROR_ALLOCATION_FAILURE)
+		return ("malloc() call in malloc hook was failed.");
+	if (errno == FT_LEAK_TEST_RESULT_ERROR_WRONG_TEST)
+		return ("Test function didn't do same even with same malloc() result.");
+	if (errno == FT_LEAK_TEST_RESULT_ERROR_TOO_SMALL)
+		return ("malloc() called count is smaller than minimum count");
+	return ("Incorrect error code");
 }

@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:57:45 by jmaing            #+#    #+#             */
-/*   Updated: 2022/05/18 21:28:26 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/05/18 21:43:45 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,13 @@ typedef struct s_leak_test_options
 	bool	allow_empty;
 }	t_leak_test_options;
 
-int		leak_test(
-			t_leak_test target,
-			const void *context,
-			t_leak_test_options *options);
-void	leak_test_start(void);
-void	leak_test_end(void);
+int			leak_test(
+				t_leak_test target,
+				const void *context,
+				t_leak_test_options *options);
+void		leak_test_start(void);
+void		leak_test_end(void);
+const char	*leak_test_error(int errno);
 
 // OK. No error.
 # define FT_LEAK_TEST_RESULT_OK 0
