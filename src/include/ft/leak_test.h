@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:57:45 by jmaing            #+#    #+#             */
-/*   Updated: 2022/05/16 21:49:06 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/05/18 21:28:26 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef bool	(*t_leak_test)(const void *context);
 typedef struct s_leak_test_options
 {
 	size_t	maximum_count;
+	size_t	minimum_count;
 	bool	allow_empty;
 }	t_leak_test_options;
 
@@ -39,10 +40,12 @@ void	leak_test_end(void);
 // Test function returned an error, or allocation failed.
 # define FT_LEAK_TEST_RESULT_ERROR -1
 // Too many tries. Avoid allocations after allocation failures.
-# define FT_LEAK_TEST_RESULT_ERROR_TO_MANY -2
+# define FT_LEAK_TEST_RESULT_ERROR_TOO_MANY -2
 // malloc() call in malloc hook was failed.
 # define FT_LEAK_TEST_RESULT_ERROR_ALLOCATION_FAILURE -3
 // Test function NOT always do same thing even with same malloc() result.
 # define FT_LEAK_TEST_RESULT_ERROR_WRONG_TEST -4
+// malloc() called count is smaller than minimum count
+# define FT_LEAK_TEST_RESULT_ERROR_TOO_SMALL -5
 
 #endif

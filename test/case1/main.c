@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 15:00:12 by jmaing            #+#    #+#             */
-/*   Updated: 2022/05/16 23:47:25 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/05/18 21:31:23 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 #include <ft/leak_test.h>
 
@@ -85,6 +86,7 @@ int	main(void)
 	t_leak_test_options	options;
 	bool				context;
 
+	memset(&options, 0, sizeof(t_leak_test_options));
 	options.allow_empty = false;
 	options.maximum_count = 10;
 	printf("[1] %d\n", leak_test(&has_no_leak, "[1]:\t", &options));
@@ -95,7 +97,9 @@ int	main(void)
 	printf("[4] %d\n", leak_test(&do_nothing, &context, &options));
 	options.allow_empty = true;
 	printf("[5] %d\n", leak_test(&do_nothing, &context, &options));
-	context = true;
+	options.minimum_count = 1;
 	printf("[6] %d\n", leak_test(&do_nothing, &context, &options));
+	context = true;
+	printf("[7] %d\n", leak_test(&do_nothing, &context, &options));
 	return (EXIT_SUCCESS);
 }

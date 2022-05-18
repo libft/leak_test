@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 17:22:35 by jmaing            #+#    #+#             */
-/*   Updated: 2022/05/16 21:48:21 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/05/18 21:34:13 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 static const t_leak_test_options	g_default_options = {
 	0, // test count limit - default unlimited
+	0, // expected minimum malloc() count
 	false, // allow empty - default false to catch wrong test function
 };
 
@@ -80,5 +81,8 @@ int	leak_test(
 	my_context.count_limit = my_context.total_count;
 	if (!my_context.count_limit && !my_context.options.allow_empty)
 		return (FT_LEAK_TEST_RESULT_NO_ALLOCATION);
+	if (my_context.options.minimum_count
+		&& my_context.count_limit < my_context.options.minimum_count)
+		return (FT_LEAK_TEST_RESULT_ERROR_TOO_SMALL);
 	return (leak_test_internal(&my_context, NULL, my_context.count_limit, 0));
 }
