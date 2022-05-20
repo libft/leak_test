@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 17:25:11 by jmaing            #+#    #+#             */
-/*   Updated: 2022/05/16 21:49:25 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/05/21 02:48:43 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,14 @@ typedef struct s_context
 	bool				error;
 }	t_context;
 
+typedef struct s_leak_test_iterator_internal
+{
+	t_node	*current;
+	size_t	fail_counter;
+	size_t	remain;
+}	t_leak_test_iterator_internal;
+
 int		leak_test_internal_execute(t_context *context);
+int		leak_test_internal_on_leak(t_context *context);
 
 #endif

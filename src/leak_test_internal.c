@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 17:22:35 by jmaing            #+#    #+#             */
-/*   Updated: 2022/05/18 21:47:18 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/05/21 03:13:20 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 static const t_leak_test_options	g_default_options = {
 	0, // test count limit - default unlimited
 	0, // expected minimum malloc() count
+	NULL, // leak handler - callback on leak
 	false, // allow empty - default false to catch wrong test function
 };
 
