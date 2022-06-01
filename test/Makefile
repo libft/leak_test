@@ -4,6 +4,7 @@ MAKE := $(MAKE) $(if $(filter 1,$(V) $(VERBOSE)),,--no-print-directory)
 CASES := $(sort $(wildcard case*))
 RULES := test clean fclean
 CORES := $(shell sh scripts/nproc.sh)
+ISATTY := $(shell [ -t 2 ] && printf 1)
 
 all: test
 re:
@@ -26,5 +27,4 @@ test: prepare_test
 .PHONY: prepare_test
 prepare_test:
 	$Q$(MAKE) -C ../src re
-	@printf "\033[93m[INFO]\033[0m Test is prepared.\n"
-
+	@printf "$(if $(ISATTY),\033[93m,)[INFO]$(if $(ISATTY),\033[0m,) Test is prepared.\n" 1>&2

@@ -1,6 +1,7 @@
 MAKEFLAGS += --no-builtin-rules
 Q := $(if $(filter 1,$(V) $(VERBOSE)),,@)
 MAKE := $(MAKE) $(if $(filter 1,$(V) $(VERBOSE)),,--no-print-directory)
+ISATTY := $(shell [ -t 2 ] && printf 1)
 
 CC := clang
 CPPFLAGS += -I../../src/include
@@ -18,7 +19,7 @@ test:
 	-$Q[ -f ../../src/libft_leak_test.address.a ] && ( $(MAKE) -q test.address.exe || $(MAKE) test.address.exe ) && ./test.address.exe | diff expected_result.txt -
 	-$Q[ -f ../../src/libft_leak_test.memory.a ] && ( $(MAKE) -q test.memory.exe || $(MAKE) test.memory.exe ) && ./test.memory.exe | diff expected_result.txt -
 	-$Q[ -f ../../src/libft_leak_test.undefined.a ] && ( $(MAKE) -q test.undefined.exe || $(MAKE) test.undefined.exe ) && ./test.undefined.exe | diff expected_result.txt -
-	@printf "\033[32m[PASS]\033[0m Basic functional test OK\n"
+	@printf "$(if $(ISATTY),\033[32m,)[PASS]$(if $(ISATTY),\033[0m,) Basic functional test OK\n" 1>&2
 
 .PHONY: target_none target_address target_memory target_undefined
 
