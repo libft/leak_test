@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 15:00:12 by jmaing            #+#    #+#             */
-/*   Updated: 2022/05/21 03:19:51 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/06/02 00:46:52 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,17 +89,23 @@ int	main(void)
 	memset(&options, 0, sizeof(t_leak_test_options));
 	options.allow_empty = false;
 	options.maximum_count = 10;
-	printf("[1] %d\n", leak_test(&has_no_leak, "[1]:\t", &options));
+	printf("[1] %s\n", leak_test_error(
+			leak_test(&has_no_leak, "[1]:\t", &options)));
 	options.maximum_count = 11;
-	printf("[2] %d\n", leak_test(&has_no_leak, "[2]:\t", &options));
-	printf("[3] %d\n", leak_test(&has_leak, NULL, &options));
+	printf("[2] %s\n", leak_test_error(
+			leak_test(&has_no_leak, "[2]:\t", &options)));
+	printf("[3] %s\n", leak_test_error(leak_test(&has_leak, NULL, &options)));
 	context = false;
-	printf("[4] %d\n", leak_test(&do_nothing, &context, &options));
+	printf("[4] %s\n", leak_test_error(
+			leak_test(&do_nothing, &context, &options)));
 	options.allow_empty = true;
-	printf("[5] %d\n", leak_test(&do_nothing, &context, &options));
+	printf("[5] %s\n", leak_test_error(
+			leak_test(&do_nothing, &context, &options)));
 	options.minimum_count = 1;
-	printf("[6] %d\n", leak_test(&do_nothing, &context, &options));
+	printf("[6] %s\n", leak_test_error(
+			leak_test(&do_nothing, &context, &options)));
 	context = true;
-	printf("[7] %d\n", leak_test(&do_nothing, &context, &options));
+	printf("[7] %s\n", leak_test_error(
+			leak_test(&do_nothing, &context, &options)));
 	return (EXIT_SUCCESS);
 }

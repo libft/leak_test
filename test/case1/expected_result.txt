@@ -1,28 +1,28 @@
-[1] -2
-[1]:	false true
-[1]:	true false
-[1]:	true true false false false
-[1]:	true true false false true
-[1]:	true true false true false
-[1]:	true true false true true
-[1]:	true true true false false
-[1]:	true true true false true
-[1]:	true true true true false
 [1]:	true true true true true
-[2] 0
-[2]:	false false
-[2]:	false true
-[2]:	true false
-[2]:	true true false false false
-[2]:	true true false false true
-[2]:	true true false true false
-[2]:	true true false true true
-[2]:	true true true false false
-[2]:	true true true false true
-[2]:	true true true true false
+[1]:	true true true true false
+[1]:	true true true false true
+[1]:	true true true false false
+[1]:	true true false true true
+[1]:	true true false true false
+[1]:	true true false false true
+[1]:	true true false false false
+[1]:	true false
+[1]:	false true
+[1] Too many tries. Avoid allocations after allocation failures.
 [2]:	true true true true true
-[3] 1
-[4] 2
-[5] 0
-[6] -5
-[7] -1
+[2]:	true true true true false
+[2]:	true true true false true
+[2]:	true true true false false
+[2]:	true true false true true
+[2]:	true true false true false
+[2]:	true true false false true
+[2]:	true true false false false
+[2]:	true false
+[2]:	false true
+[2]:	false false
+[2] No error.
+[3] At least one leak was found.
+[4] No malloc() call. Possibly wrong test function.
+[5] No error.
+[6] malloc() called count is smaller than minimum count
+[7] Test function returned an error, or allocation failed.
