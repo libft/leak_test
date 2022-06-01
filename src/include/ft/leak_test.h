@@ -6,7 +6,7 @@
 /*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:57:45 by jmaing            #+#    #+#             */
-/*   Updated: 2022/05/21 03:11:53 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 2022/06/01 15:41:48 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void		leak_test_start(void);
 void		leak_test_end(void);
 const char	*leak_test_error(int errno);
 
-bool	leak_test_iterator_has_next(t_leak_test_iterator *self);
-bool	leak_test_iterator_next(t_leak_test_iterator *self);
+bool		leak_test_iterator_has_next(t_leak_test_iterator *self);
+bool		leak_test_iterator_next(t_leak_test_iterator *self);
 
 // OK. No error.
 # define FT_LEAK_TEST_RESULT_OK 0
