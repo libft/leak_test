@@ -10,13 +10,13 @@ BUILDDIR ?= .build
 all: $(addprefix libft_leak_test.,$(VARIANTS:=.a))
 .PHONY: all $(addprefix libft_leak_test.,$(VARIANTS:=.a))
 libft_leak_test.none.a: $(BUILDDIR)/Makefile
-	$Q$(MAKE) -C $(BUILDDIR) $@ && cp $(BUILDDIR)/$@ $@ || echo "Failed to build $@"
+	-$Q$(MAKE) -C $(BUILDDIR) $@ && cp $(BUILDDIR)/$@ $@
 libft_leak_test.address.a: $(BUILDDIR)/Makefile
-	$Q$(MAKE) -C $(BUILDDIR) $@ && cp $(BUILDDIR)/$@ $@ || echo "Failed to build $@"
+	-$Q$(MAKE) -C $(BUILDDIR) $@ && cp $(BUILDDIR)/$@ $@
 libft_leak_test.memory.a: $(BUILDDIR)/Makefile
-	$Q$(MAKE) -C $(BUILDDIR) $@ && cp $(BUILDDIR)/$@ $@ || echo "Failed to build $@"
+	-$Q$(MAKE) -C $(BUILDDIR) $@ && cp $(BUILDDIR)/$@ $@
 libft_leak_test.undefined.a: $(BUILDDIR)/Makefile
-	$Q$(MAKE) -C $(BUILDDIR) $@ && cp $(BUILDDIR)/$@ $@ || echo "Failed to build $@"
+	-$Q$(MAKE) -C $(BUILDDIR) $@ && cp $(BUILDDIR)/$@ $@
 
 .PHONY: clean fclean re
 clean:

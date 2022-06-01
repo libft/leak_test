@@ -14,10 +14,10 @@ clean:
 fclean: clean
 	$Qrm -f *.o *.a
 test:
-	$Q[ -f ../../src/libft_leak_test.none.a ] && $(MAKE) test.none.exe && ./test.none.exe | diff expected_result.txt -
-	-$Q[ -f ../../src/libft_leak_test.address.a ] && $(MAKE) test.address.exe && ./test.address.exe | diff expected_result.txt -
-	-$Q[ -f ../../src/libft_leak_test.memory.a ] && $(MAKE) test.memory.exe && ./test.memory.exe | diff expected_result.txt -
-	-$Q[ -f ../../src/libft_leak_test.undefined.a ] && $(MAKE) test.undefined.exe && ./test.undefined.exe | diff expected_result.txt -
+	$Q[ -f ../../src/libft_leak_test.none.a ] && ( $(MAKE) -q test.none.exe || $(MAKE) test.none.exe ) && ./test.none.exe | diff expected_result.txt -
+	-$Q[ -f ../../src/libft_leak_test.address.a ] && ( $(MAKE) -q test.address.exe || $(MAKE) test.address.exe ) && ./test.address.exe | diff expected_result.txt -
+	-$Q[ -f ../../src/libft_leak_test.memory.a ] && ( $(MAKE) -q test.memory.exe || $(MAKE) test.memory.exe ) && ./test.memory.exe | diff expected_result.txt -
+	-$Q[ -f ../../src/libft_leak_test.undefined.a ] && ( $(MAKE) -q test.undefined.exe || $(MAKE) test.undefined.exe ) && ./test.undefined.exe | diff expected_result.txt -
 	@printf "\033[32m[PASS]\033[0m Basic functional test OK\n"
 
 .PHONY: target_none target_address target_memory target_undefined
