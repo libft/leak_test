@@ -26,3 +26,5 @@ test: prepare_test
 .PHONY: prepare_test
 prepare_test:
 	$Q$(MAKE) -C ../src re
+	@printf "\033[93m[INFO]\033[0m Test is prepared.\n"
+
