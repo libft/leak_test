@@ -5,8 +5,8 @@ MAKE := $(MAKE) $(if $(filter 1,$(V) $(VERBOSE)),,--no-print-directory)
 SRCS := $(shell find .. -maxdepth 1 -type f -name "*.c")
 NAME := leak_test
 
-CC ?= clang
-CFLAGS ?= -Wall -Wextra -Werror -std=c99 -pedantic -g3
+CC := clang
+CFLAGS := -Wall -Wextra -Werror -std=c99 -pedantic -g3
 
 CPPFLAGS := -I../include
 ARFLAGS := cr$(if $(filter 1,$(V) $(VERBOSE)),v,s)
