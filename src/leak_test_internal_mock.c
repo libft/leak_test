@@ -75,7 +75,7 @@ int	leak_test_internal_execute(t_context *context)
 	leak_test_end();
 	context->test_count++;
 	if (error)
-		return (FT_LEAK_TEST_RESULT_ERROR);
+		return (error);
 	if (context->remain_count)
 		return (leak_test_internal_on_leak(context));
 	if (context->error)
